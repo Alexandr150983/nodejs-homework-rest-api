@@ -2,7 +2,20 @@ const { Contact } = require("../../models/contact");
 const { ctrlWrapper } = require("../../helpers");
 
 const listContacts = async (req, res) => {
-  const result = await Contact.find({}, "-createdAt -updatedAt");
+  const { _id: owner } = req.user;
+  const { page = 1, limit = 20, favorite } = req.query;
+
+  const query = { owner };
+  if (favorite) {
+    query.favorite = favorite;
+  }
+
+  const skip = (page - 1) * limit;
+  const result = await Contact.find(query, "-createdAt -updatedAt", {
+    skip,
+    limit,
+  });
+
   res.json(result);
 };
 
