@@ -1,15 +1,15 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
-const { META_PASSWORD } = process.env;
+const { MAILGUN_SMTP_PASSWORD, MAILGUN_SMTP_USER } = process.env;
 
 const nodemailerConfig = {
-  host: "smtp.meta.ua",
-  port: 465,
-  secure: true,
+  host: "smtp.mailgun.org",
+  port: 587,
+  secure: false,
   auth: {
-    user: "alexandr150983@meta.ua",
-    pass: META_PASSWORD,
+    user: MAILGUN_SMTP_USER,
+    pass: MAILGUN_SMTP_PASSWORD,
   },
 };
 

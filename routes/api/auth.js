@@ -13,6 +13,18 @@ router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
 router.get("/verify/:verificationToken", ctrl.verifyEmail);
 
 router.post(
+  "/forgot-password",
+  validateBody(schemas.emailSchema),
+  ctrl.requestPasswordReset
+);
+
+router.post(
+  "/reset-password/:token",
+  validateBody(schemas.newPasswordSchema),
+  ctrl.resetPassword
+);
+
+router.post(
   "/verify",
   validateBody(schemas.emailSchema),
   ctrl.resendVerifyEmail
